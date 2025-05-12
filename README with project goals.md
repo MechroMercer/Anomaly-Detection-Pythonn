@@ -26,7 +26,7 @@ This application is designed to detect anomalies in datasets using machine learn
 
 -Below is a basic plan of development some actions may differ in the final version
 
-### "Week" 1 – Setup & Data Import
+###  1 Setup & Data Import
 - Initialize GitHub repo & README
 - Project folder structure
 - File import system (CSV, Excel, JSON)
@@ -34,20 +34,20 @@ This application is designed to detect anomalies in datasets using machine learn
 - Data cleaning functions
 - First commit with working file preview
 
-### "Week" 2 – Anomaly Detection
+### 2 Anomaly Detection
 - Integrate ML algorithms via `scikit-learn` / `pyod`
 - Create selection interface for models & parameters
 - Generate anomaly flags
 - Export results
 - Logging system for analysis steps
 
-### "Week" 3 – Visualization & Alerts
+###  3  Visualization & Alerts
 - Choose visualization tools
 - Create visual reports (scatter, boxplot, etc.)
 - Build basic email alert system
 - Configurable alert thresholds
 
-### "Week" 4 – Final Touches
+###  4 Final Touches
 - Clean up UI
 - Save model config options
 - Final testing with sample datasets
