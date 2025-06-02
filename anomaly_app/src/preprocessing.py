@@ -1,3 +1,4 @@
+import pandas as pd
 def drop_missing_values(df):
     return df.dropna()
 
