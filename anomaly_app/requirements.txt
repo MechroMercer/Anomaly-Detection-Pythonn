@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+scikit-learn
+pyod
+tqdm
+torch
+openpyxl

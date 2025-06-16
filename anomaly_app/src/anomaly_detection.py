@@ -1,24 +1,39 @@
 from pyod.models.knn import KNN
 from pyod.models.iforest import IForest
-from pyod.models.ocsvm import OCSVM
+from pyod.models.lof import LOF
+from pyod.models.auto_encoder import AutoEncoder
 
-def detect_anomalies(df, model_name='knn', contamination=0.05):
-    X = df.select_dtypes(include=["float64", "int64"]).dropna()
+# Lista dostępnych modeli
+MODEL_MAP = {
+    "KNN": KNN,
+    "Isolation Forest": IForest,
+    "LOF": LOF,
+    "AutoEncoder": AutoEncoder
+}
 
-    if model_name == 'knn':
-        model = KNN(contamination=contamination)
-    elif model_name == 'iforest':
-        model = IForest(contamination=contamination)
-    elif model_name == 'ocsvm':
-        model = OCSVM(contamination=contamination)
+def get_model(model_name, contamination):
+    """
+    Zwraca instancję modelu na podstawie wybranej nazwy i poziomu kontaminacji.
+    """
+    model_class = MODEL_MAP.get(model_name)
+    if model_class:
+        return model_class(contamination=contamination)
     else:
-        raise ValueError(f"Unsupported model: {model_name}")
+        raise ValueError(f"Nieznany model: {model_name}")
+
+def detect_anomalies(data, model, contamination=0.1):
+    """
+    Trenuje model na danych numerycznych i zwraca DataFrame z flagami anomalii.
+    """
+    # Używamy tylko kolumn numerycznych
+    X = data.select_dtypes(include=['number']).dropna()
+
+    if X.empty:
+        raise ValueError("Brak danych numerycznych po czyszczeniu. Nie można przeprowadzić analizy anomalii.")
 
     model.fit(X)
-    labels = model.predict(X)
-    scores = model.decision_function(X)
+    preds = model.predict(X)
 
-    result_df = df.copy()
-    result_df["anomaly"] = labels
-    result_df["score"] = scores
-    return result_df
+    result = data.copy()
+    result['anomaly'] = preds
+    return result
