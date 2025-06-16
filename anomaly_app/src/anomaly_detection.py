@@ -3,7 +3,6 @@ from pyod.models.iforest import IForest
 from pyod.models.lof import LOF
 from pyod.models.auto_encoder import AutoEncoder
 
-# Lista dostępnych modeli
 MODEL_MAP = {
     "KNN": KNN,
     "Isolation Forest": IForest,
@@ -25,7 +24,6 @@ def detect_anomalies(data, model, contamination=0.1):
     """
     Trenuje model na danych numerycznych i zwraca DataFrame z flagami anomalii.
     """
-    # Używamy tylko kolumn numerycznych
     X = data.select_dtypes(include=['number']).dropna()
 
     if X.empty:

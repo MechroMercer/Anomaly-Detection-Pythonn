@@ -8,14 +8,12 @@ from pyod.models.ocsvm import OCSVM
 from pyod.models.lof import LOF
 
 
-# ----------------- PREPROCESSING -----------------
 def preprocess_data(df):
     numeric_df = df.select_dtypes(include=['number'])
     numeric_df = numeric_df.fillna(numeric_df.mean())
     return numeric_df
 
 
-# ----------------- ANOMALY DETECTION -----------------
 def detect_anomalies(df, model):
     model.fit(df)
     predictions = model.predict(df)
@@ -24,7 +22,6 @@ def detect_anomalies(df, model):
     return df_result
 
 
-# ----------------- VISUALIZATIONS -----------------
 def plot_scatter(df, feature_x, feature_y):
     palette = {0: 'blue', 1: 'red'}
     fig, ax = plt.subplots()
@@ -40,7 +37,6 @@ def plot_boxplot(df, feature):
     st.pyplot(fig)
 
 
-# ----------------- MODEL PICKER -----------------
 def get_model(name, contamination):
     if name == "IsolationForest":
         return IForest(contamination=contamination)
@@ -53,7 +49,6 @@ def get_model(name, contamination):
         return None
 
 
-# ----------------- MAIN APP -----------------
 def main():
     st.set_page_config(page_title="Anomaly Detection App", layout="centered")
     st.title("🔍 Anomaly Detection Dashboard")
