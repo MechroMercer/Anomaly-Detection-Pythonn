@@ -11,9 +11,7 @@ MODEL_MAP = {
 }
 
 def get_model(model_name, contamination):
-    """
-    Zwraca instancję modelu na podstawie wybranej nazwy i poziomu kontaminacji.
-    """
+   
     model_class = MODEL_MAP.get(model_name)
     if model_class:
         return model_class(contamination=contamination)
@@ -21,9 +19,7 @@ def get_model(model_name, contamination):
         raise ValueError(f"Nieznany model: {model_name}")
 
 def detect_anomalies(data, model, contamination=0.1):
-    """
-    Trenuje model na danych numerycznych i zwraca DataFrame z flagami anomalii.
-    """
+    
     X = data.select_dtypes(include=['number']).dropna()
 
     if X.empty:
